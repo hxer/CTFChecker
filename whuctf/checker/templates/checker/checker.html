@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel='stylesheet' href="{% static 'checker/site.min.css' %}">
+        <link rel='stylesheet' href="{% static 'checker/font-awesome/css/font-awesome.min.css' %}">
+        <script href="{% static 'checker/jquery-1.10.1.min.js' %}"></script>
+    </head>
+    <body>
+        <div class='row' style='margin-top: 20px'>
+            <div class='col-md-8 col-md-offset-2'>
+                <div class='panel panel-info'>
+                    <div class='panel-heading'>
+                        <p class='pull-right'>{{ time }}</p>
+                        <p>Checker Status</p>
+                    </div>
+
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>TEAM</th>
+                                <th style='width: 150px'>BOOK</th>
+                                <th style='width: 150px'>FACKFUZZ</th>
+                                <th style='width: 150px'>WEB</th>
+                                <th>SCORE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for team in teams %}
+                                <tr>
+                                    <td>{{ team.tid }}</td>
+                                    <td>{{ team.name }}</td>
+                                    {% for state in team.getstatus %}
+                                        
+                                        {% if state %}
+                                            <td><i class='fa fa-times fa-lg'></i></td>
+                                        {% else %}
+                                            <td><i class='fa fa-check fa-lg'></i></td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>{{ team.score }}</td>
+                                </tr>
+                            {% endfor %}
+                            {{ team.status }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
